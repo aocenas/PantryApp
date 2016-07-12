@@ -1,20 +1,10 @@
-const userNames = [
-    'andrej',
-    'teo',
-    'palo'
-];
+import db from './db';
+const Sequelize = require('sequelize');
 
-export class User {
-
-    constructor(
-        public id: number,
-        public name: string
-    ) {}
-
-    static getAllUsers() {
-        return userNames.map((name, index) =>
-            new User(index, name)
-        );
-    }
-}
-
+export default db.define('User', {
+    name: {
+        type: Sequelize.TEXT,
+        allowNull: false,
+        unique: true,
+    },
+});

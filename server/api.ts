@@ -1,18 +1,22 @@
-import * as express from 'express';
+const express = require('express');
 
-import {PantryItem} from './models/pantry-item.model';
-import {User} from './models/user.model';
+import PantryItem from './models/pantry-item.model';
+import User from './models/user.model';
 
 const router = express.Router();
 
 router.get('/pantry-items', function getPantryItems(req, res, next) {
-    const items = PantryItem.getAllItems();
-    res.json({items});
+    PantryItem
+        .findAll()
+        .then(items => res.json({items}))
+        .catch(next);
 });
 
 router.get('/users', function getUsers(req, res, next) {
-    const users = User.getAllUsers();
-    res.json({users});
+    User
+        .findAll()
+        .then(items => res.json({items}))
+        .catch(next);
 });
 
 export default router;

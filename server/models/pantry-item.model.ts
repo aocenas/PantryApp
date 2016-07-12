@@ -1,23 +1,15 @@
-const mockItemsNames = [
-    'Snickers',
-    'Chips',
-    'Chocolate',
-    'Dru tycinky',
-    'Banany',
-];
+import db from './db';
+const Sequelize = require('sequelize');
 
-export class PantryItem {
+export default db.define('PantryItem', {
+    name: {
+        type: Sequelize.TEXT,
+        allowNull: false,
+        unique: true,
+    },
 
-    constructor(
-        public id: number,
-        public count: number,
-        public name: string
-    ) {}
-
-    static getAllItems() {
-        return mockItemsNames.map((name, index) =>
-            new PantryItem(index, Math.ceil((Math.random() * 100)), name)
-        );
-    }
-}
-
+    count: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+    },
+});
