@@ -15,19 +15,32 @@ import { PantryService } from '../pantry.service';
             </ul>
         </div>
         
-        <div *ngIf="users">
-            <ul>
-              <li *ngFor="let user of users">
-                <span>{{user.name}}</span>
-              </li>
-            </ul>
-        </div>
+        <form>
+            <div class="form-group">
+                <select
+                    class="form-control"
+                    required
+                    [(ngModel)]="selectedUserId"
+                    [ngModelOptions]="{standalone: true}"
+                >
+                    <option *ngFor="let user of users" [value]="user.id">
+                        {{user.name}}
+                    </option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-default">Take a snack</button>
+            {{selectedUserId}}
+        </form>
     `,
     providers: [UserService, PantryService]
 })
 export class PantryListComponent implements OnInit {
     pantryItems: Object[];
-    users: Object[];
+    // initialize so we do not have to handle empty state in template by hiding something
+    users: Object[] = [];
+
+    selectedUserId: number;
+
 
     constructor(
         private userService: UserService,
@@ -36,7 +49,13 @@ export class PantryListComponent implements OnInit {
 
     ngOnInit() {
         this.pantryService.getItems().then(items => this.pantryItems = items);
-        this.userService.getUsers().then(users => this.users = users);
+        this.userService
+            .getUsers()
+            .then(users => {
+                this.users = users;
+                // TODO init from session
+                this.selectedUserId = users[0].id;
+            });
     }
 
     getPantryItems() {

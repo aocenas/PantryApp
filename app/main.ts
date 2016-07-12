@@ -7,13 +7,18 @@
 // The usual bootstrapping imports
 import { bootstrap }      from '@angular/platform-browser-dynamic';
 import { HTTP_PROVIDERS } from '@angular/http';
+import { disableDeprecatedForms, provideForms } from '@angular/forms';
 
 import { AppComponent }         from './app.component';
 import { APP_ROUTER_PROVIDERS } from './app.routes';
 
 bootstrap(AppComponent, [
     APP_ROUTER_PROVIDERS,
-    HTTP_PROVIDERS
+    HTTP_PROVIDERS,
+    disableDeprecatedForms(),
+    provideForms()
+
     // { provide: XHRBackend, useClass: InMemoryBackendService }, // in-mem server
     // { provide: SEED_DATA, useClass: InMemoryDataService }      // in-mem server data
-]);
+])
+.catch((err: any) => console.error(err));
