@@ -3,6 +3,7 @@ npm-debug.log
 
 # all source files are .ts so .js and .map are only compiled files
 app/**/*.js
+server/**/*.js
 **/*.map
 
 typings
