@@ -9,7 +9,7 @@ export class UserService {
 
     constructor(private http: Http) { }
 
-    getUsers(): Promise<Object[]> {
+    getUsers(): Promise<any[]> {
         return this.http.get(this.usersUrl)
             .toPromise()
             .then(response => response.json().users)
