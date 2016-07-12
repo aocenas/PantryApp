@@ -11,8 +11,8 @@ router.get('/pantry-items', function getPantryItems(req, res, next) {
 });
 
 router.get('/users', function getUsers(req, res, next) {
-    const items = User.getAllUsers();
-    res.json({items});
+    const users = User.getAllUsers();
+    res.json({users});
 });
 
 export default router;

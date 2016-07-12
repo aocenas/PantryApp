@@ -5,14 +5,14 @@ import { Http } from '@angular/http';
 
 @Injectable()
 export class PantryService {
-    private itemsUrl = 'app/pantry-items';  // URL to web api
+    private itemsUrl = 'api/v1/pantry-items';
 
     constructor(private http: Http) { }
 
     getItems(): Promise<Object[]> {
         return this.http.get(this.itemsUrl)
             .toPromise()
-            .then(response => response.json().data)
+            .then(response => response.json().items)
             .catch(this.handleError);
     }
 

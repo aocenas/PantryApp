@@ -5,14 +5,14 @@ import { Http } from '@angular/http';
 
 @Injectable()
 export class UserService {
-    private usersUrl = 'app/users';  // URL to web api
+    private usersUrl = 'api/v1/users';
 
     constructor(private http: Http) { }
 
     getUsers(): Promise<Object[]> {
         return this.http.get(this.usersUrl)
             .toPromise()
-            .then(response => response.json().data)
+            .then(response => response.json().users)
             .catch(this.handleError);
     }
 
