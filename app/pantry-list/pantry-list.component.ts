@@ -7,21 +7,33 @@ import { PantryService } from '../pantry.service';
     selector: 'pantry-items',
     template: `
         <h1>Pantry</h1>
-        <div *ngIf="pantryItems">
-            <ul>
-              <li *ngFor="let item of pantryItems">
-                <span>{{item.name}}</span>
-              </li>
-            </ul>
-        </div>
+        <form (ngSubmit)="onSubmit()">
         
-        <form>
+            <div *ngIf="pantryItems">
+                <ul>
+                    <li *ngFor="let item of pantryItems">
+                        <input
+                            type="radio"
+                            name="pantry_item"
+                            value="{{item.id}}"
+                            [(ngModel)]="selectedItemId"
+                            (click)="clearItemError()"
+                        />
+                        {{item.name}}
+                    </li>
+                </ul>
+            </div>
+            <div *ngIf="showItemRequired" class="error-message">
+                You need to select a snack to take.
+            </div>
+        
             <div class="form-group">
                 <select
                     class="form-control"
                     required
                     [(ngModel)]="selectedUserId"
                     [ngModelOptions]="{standalone: true}"
+                    name="user_id"
                 >
                     <option *ngFor="let user of users" [value]="user.id">
                         {{user.name}}
@@ -29,7 +41,7 @@ import { PantryService } from '../pantry.service';
                 </select>
             </div>
             <button type="submit" class="btn btn-default">Take a snack</button>
-            {{selectedUserId}}
+            {{selectedItemId}}
         </form>
     `,
     providers: [UserService, PantryService]
@@ -40,7 +52,8 @@ export class PantryListComponent implements OnInit {
     users: Object[] = [];
 
     selectedUserId: number;
-
+    selectedItemId: number;
+    showItemRequired = false;
 
     constructor(
         private userService: UserService,
@@ -60,6 +73,18 @@ export class PantryListComponent implements OnInit {
 
     getPantryItems() {
         return [];
+    }
+
+    clearItemError() {
+        this.showItemRequired = false;
+    }
+
+    onSubmit() {
+        if (!this.selectedItemId) {
+            this.showItemRequired = true;
+            return;
+        }
+        console.log('submit');
     }
 }
 
