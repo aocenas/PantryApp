@@ -1,0 +1,10 @@
+node_modules
+npm-debug.log
+
+# all source files are .ts so .js and .map are only compiled files
+**/*.js
+**/*.map
+
+typings
+
+.idea
