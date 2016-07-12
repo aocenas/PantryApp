@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { UserService } from '../user.service';
+import { PantryService } from '../pantry.service';
 
 @Component({
     selector: 'pantry-items',
@@ -22,18 +23,19 @@ import { UserService } from '../user.service';
             </ul>
         </div>
     `,
-    providers: [UserService]
+    providers: [UserService, PantryService]
 })
 export class PantryListComponent implements OnInit {
-    pantryItems: {name: string}[];
+    pantryItems: Object[];
     users: Object[];
 
     constructor(
-        private userService: UserService
+        private userService: UserService,
+        private pantryService: PantryService
     ) {}
 
     ngOnInit() {
-        this.pantryItems = this.getPantryItems();
+        this.pantryService.getItems().then(items => this.pantryItems = items);
         this.userService.getUsers().then(users => this.users = users);
     }
 
