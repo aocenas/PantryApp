@@ -1,0 +1,16 @@
+<h1>Stats</h1>
+<div *ngIf="statsData">
+    <div *ngFor="let stat of statsData" class="panel panel-default">
+        <div class="panel-body">
+            {{stat.user.name}}
+            <ul>
+                <li *ngFor="let action of stat.actions">
+                    took {{action.item.name}} at {{action.createdAt | date}}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<h3 *ngIf="!statsData">
+    Nobody has taken anything from the pantry yet.
+</h3>

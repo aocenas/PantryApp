@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import UserService from '../user.service';
+import UsersService from './users.service';
 import {makeAction} from '../utils';
 
 export const LOAD_USERS = 'LOAD_USERS';
@@ -14,12 +14,12 @@ export const loadCurrentUserIdAction = makeAction(LOAD_CURRENT_USER_ID);
 export class UsersActions {
 
     constructor(
-        private userService: UserService
+        private usersService: UsersService
     ) {}
 
     loadUsers() {
         return (dispatch) => {
-            return this.userService
+            return this.usersService
                 .getUsers()
                 .then(
                     users => dispatch(loadUsersAction(users)),
@@ -30,7 +30,7 @@ export class UsersActions {
 
     loadCurrentUserId() {
         return (dispatch) => {
-            return this.userService
+            return this.usersService
                 .getCurrentUserId()
                 .then(
                     users => dispatch(loadCurrentUserIdAction(users)),

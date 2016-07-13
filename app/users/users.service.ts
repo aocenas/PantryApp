@@ -1,10 +1,10 @@
 import 'rxjs/add/operator/toPromise';
-import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import {Injectable} from '@angular/core';
+import {Http} from '@angular/http';
 
 
 @Injectable()
-export default class UserService {
+export default class UsersService {
     private usersUrl = 'api/v1/users';
     private currentUserUrl = 'api/v1/users/current';
 

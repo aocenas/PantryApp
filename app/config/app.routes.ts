@@ -1,6 +1,6 @@
 import {provideRouter, RouterConfig}  from '@angular/router';
-import {PantryListComponent} from './pantry-list/pantry-list.component';
-import {StatsComponent} from './stats/stats.component';
+import {PantryListComponent} from '../pantry-list/pantry-list.component';
+import {StatsComponent} from '../stats/stats.component';
 
 // TODO: not found route
 const routes: RouterConfig = [

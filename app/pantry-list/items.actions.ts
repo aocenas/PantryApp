@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 
-import PantryService from '../pantry.service';
+import PantryService from './pantry.service';
 import {makeAction} from '../utils';
-import {loadCurrentUserIdAction} from './users.actions';
+import {loadCurrentUserIdAction} from '../users/users.actions';
 
 export const LOAD_ITEMS = 'LOAD_ITEMS';
 const loadItemsAction = makeAction(LOAD_ITEMS);

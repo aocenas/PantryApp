@@ -1,7 +1,7 @@
 import {Component, OnInit, Inject} from '@angular/core';
 import {ROUTER_DIRECTIVES} from '@angular/router';
 
-import {UsersActions} from './pantry-list/users.actions';
+import {UsersActions} from './users/users.actions';
 import {ItemsActions} from './pantry-list/items.actions';
 import {STORE_TOKEN} from './config/create-store';
 
@@ -14,6 +14,7 @@ import {STORE_TOKEN} from './config/create-store';
         </ul>
         <router-outlet></router-outlet>
     `,
+    styleUrls: ['app/app.component.css'],
     directives: [ROUTER_DIRECTIVES],
     providers: [UsersActions, ItemsActions],
 })

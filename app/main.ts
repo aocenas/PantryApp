@@ -10,13 +10,13 @@ import {HTTP_PROVIDERS} from '@angular/http';
 import {disableDeprecatedForms, provideForms} from '@angular/forms';
 
 import {AppComponent} from './app.component';
-import {APP_ROUTER_PROVIDERS} from './app.routes';
+import {APP_ROUTER_PROVIDERS} from './config/app.routes';
 
-import {UsersActions} from './pantry-list/users.actions';
+import {UsersActions} from './users/users.actions';
 import {ItemsActions} from './pantry-list/items.actions';
 
-import PantryService from './pantry.service';
-import UserService from './user.service';
+import PantryService from './pantry-list/pantry.service';
+import UsersService from './users/users.service';
 import StatsService from './stats/stats.service';
 
 import {store, STORE_TOKEN} from './config/create-store';
@@ -36,7 +36,7 @@ bootstrap(AppComponent, [
     UsersActions,
 
     PantryService,
-    UserService,
+    UsersService,
     StatsService,
 
     // { provide: XHRBackend, useClass: InMemoryBackendService }, // in-mem server
