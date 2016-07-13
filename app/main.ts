@@ -17,6 +17,7 @@ import {ItemsActions} from './pantry-list/items.actions';
 
 import PantryService from './pantry.service';
 import UserService from './user.service';
+import StatsService from './stats/stats.service';
 
 import {store, STORE_TOKEN} from './config/create-store';
 
@@ -36,6 +37,7 @@ bootstrap(AppComponent, [
 
     PantryService,
     UserService,
+    StatsService,
 
     // { provide: XHRBackend, useClass: InMemoryBackendService }, // in-mem server
     // { provide: SEED_DATA, useClass: InMemoryDataService }      // in-mem server data

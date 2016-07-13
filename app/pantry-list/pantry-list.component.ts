@@ -15,7 +15,7 @@ export class PantryListComponent implements OnInit, OnDestroy {
     selectedUserId: number;
     selectedItemId: number;
     showItemRequired = false;
-    unsubscribe: any;
+    unsubscribe: Function;
 
     constructor(
         @Inject(STORE_TOKEN) private store: any,
