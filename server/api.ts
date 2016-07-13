@@ -1,5 +1,6 @@
 const express = require('express');
 
+import Actions from './models/actions.model';
 import PantryItem from './models/pantry-item.model';
 import User from './models/user.model';
 
@@ -15,7 +16,14 @@ router.get('/pantry-items', function getPantryItems(req, res, next) {
 router.get('/users', function getUsers(req, res, next) {
     User
         .findAll()
-        .then(items => res.json({items}))
+        .then(users => res.json({users}))
+        .catch(next);
+});
+
+router.get('/actions', function getActions(req, res, next) {
+    Actions
+        .findAll()
+        .then(actions => res.json({actions}))
         .catch(next);
 });
 
