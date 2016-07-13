@@ -29,10 +29,10 @@ export class ItemsActions {
     };
 
 
-    takeItem(itemId) {
+    takeItem(itemId, userId) {
         return (dispatch) => {
             return this.pantryService
-                .takeItem(itemId)
+                .takeItem(itemId, userId)
                 .then(
                     item => dispatch(takeItemAction(item)),
                     err => dispatch(takeItemAction(err))

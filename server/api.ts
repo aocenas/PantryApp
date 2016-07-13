@@ -1,6 +1,6 @@
 const express = require('express');
 
-import Actions from './models/actions.model';
+import Action from './models/actions.model';
 import PantryItem from './models/pantry-item.model';
 import User from './models/user.model';
 
@@ -9,33 +9,40 @@ const router = express.Router();
 /**
  * Decrement count on particular item.
  */
-router.post('/pantry-items/:id/take', function takePantryItem(req, res, next) {
-    let id: number;
+router.post('/user/:userId/take/:itemId/', function takePantryItem(req, res, next) {
+    let itemId: number;
+    let userId: number;
     // make sure we have correct input
     try {
-        id = parseInt(req.params.id, 10);
+        itemId = parseInt(req.params.itemId, 10);
+        userId = parseInt(req.params.userId, 10);
     } catch (error) {
-        next(error);
+        res.status(400).end();
     }
 
-    PantryItem
-        .findById(id)
-        .then(item => {
-            if (!item) {
+    Promise
+        .all([
+            PantryItem.findById(itemId),
+            User.findById(userId),
+        ])
+        .then(([item, user]) => {
+            if (!(item && user)) {
                 res.status(404).end();
-            }
-            // make sure we cannot take items with count == 0
-            if (item.count > 0) {
-                return item
-                    .decrement('count', {by: 1})
-                    // TODO: PERF: we could just modify data in place
-                    .then(item => item.reload())
-                    .then(() => {
-                        // TODO: create action log
-                        res.json({item});
-                    });
             } else {
-                res.status(400).json({message: 'Out of stock'});
+                if (item.count > 0) {
+                    return item
+                        .decrement('count', {by: 1})
+                        // TODO: PERF: we could just modify data in place
+                        .then(item => item.reload())
+                        .then(() => Action.create({
+                            type: 'take',
+                            UserId: user.id,
+                            PantryItemId: item.id,
+                        }))
+                        .then(() => res.json({item}));
+                } else {
+                    res.status(400).json({message: 'Out of stock'});
+                }
             }
         })
         .catch(next);
@@ -56,7 +63,7 @@ router.get('/users', function getUsers(req, res, next) {
 });
 
 router.get('/actions', function getActions(req, res, next) {
-    Actions
+    Action
         .findAll()
         .then(actions => res.json({actions}))
         .catch(next);

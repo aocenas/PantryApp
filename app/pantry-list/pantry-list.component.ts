@@ -57,7 +57,9 @@ export class PantryListComponent implements OnInit, OnDestroy {
             return;
         }
 
-        this.store.dispatch(this.itemsActions.takeItem(this.selectedItemId));
+        this.store.dispatch(
+            this.itemsActions.takeItem(this.selectedItemId, this.selectedUserId)
+        );
         // TODO: it would be better to reset this after we are sure action is completed, check what is isMounted
         // equivalent in Angular or use Bluebird with cancelable promises
         // .then(() => this.selectedItemId = null;)
