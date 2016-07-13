@@ -7,7 +7,7 @@ export default createReducer([], {
         // TODO: error handling
         // TODO: loading state
 
-        if (action.payload && !action.error) {
+        if (!action.error) {
             // for now we just replace state with server data
             return action.payload;
         } else {

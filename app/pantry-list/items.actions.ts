@@ -16,7 +16,6 @@ export class ItemsActions {
 
     loadItems() {
         return (dispatch) => {
-            dispatch(loadItemsAction());
             return this.pantryService
                 .getItems()
                 .then(

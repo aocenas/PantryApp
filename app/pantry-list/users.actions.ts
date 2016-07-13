@@ -16,7 +16,6 @@ export class UsersActions {
 
     loadUsers() {
         return (dispatch) => {
-            dispatch(loadUsersAction());
             return this.userService
                 .getUsers()
                 .then(
