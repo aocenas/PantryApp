@@ -2,7 +2,7 @@
 import PantryItem from './pantry-item.model';
 import User from './user.model';
 import db from './db';
-import {userNames, itemNames} from './initData';
+import {userNames, itemNames} from './init-data';
 
 function randomCount() {
     return Math.ceil(Math.random() * 100);
