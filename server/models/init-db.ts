@@ -5,7 +5,7 @@ import db from './db';
 import {userNames, itemNames} from './init-data';
 
 function randomCount() {
-    return Math.ceil(Math.random() * 100);
+    return Math.ceil(Math.random() * 10);
 }
 
 export default () =>
