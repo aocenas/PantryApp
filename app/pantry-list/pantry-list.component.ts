@@ -44,7 +44,7 @@ import { PantryService } from '../pantry.service';
             {{selectedItemId}}
         </form>
     `,
-    providers: [UserService, PantryService]
+    providers: [UserService, PantryService],
 })
 export class PantryListComponent implements OnInit {
     pantryItems: Object[];
