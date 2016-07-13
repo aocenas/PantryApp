@@ -4,7 +4,7 @@ import { Http } from '@angular/http';
 
 
 @Injectable()
-export class PantryService {
+export default class PantryService {
     private itemsUrl = 'api/v1/pantry-items';
 
     constructor(private http: Http) { }

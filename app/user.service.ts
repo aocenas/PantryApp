@@ -4,7 +4,7 @@ import { Http } from '@angular/http';
 
 
 @Injectable()
-export class UserService {
+export default class UserService {
     private usersUrl = 'api/v1/users';
 
     constructor(private http: Http) { }

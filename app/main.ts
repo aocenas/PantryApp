@@ -12,11 +12,30 @@ import {disableDeprecatedForms, provideForms} from '@angular/forms';
 import {AppComponent} from './app.component';
 import {APP_ROUTER_PROVIDERS} from './app.routes';
 
+import {UsersActions} from './pantry-list/users.actions';
+import {ItemsActions} from './pantry-list/items.actions';
+
+import PantryService from './pantry.service';
+import UserService from './user.service';
+
+import {store, STORE_TOKEN} from './config/create-store';
+
+
 bootstrap(AppComponent, [
     APP_ROUTER_PROVIDERS,
     HTTP_PROVIDERS,
+
+    // using new version of forms
     disableDeprecatedForms(),
-    provideForms()
+    provideForms(),
+
+    // make redux store injectable
+    { provide: STORE_TOKEN, useValue: store },
+    ItemsActions,
+    UsersActions,
+
+    PantryService,
+    UserService,
 
     // { provide: XHRBackend, useClass: InMemoryBackendService }, // in-mem server
     // { provide: SEED_DATA, useClass: InMemoryDataService }      // in-mem server data

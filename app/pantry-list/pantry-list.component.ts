@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Inject, OnDestroy} from '@angular/core';
+import {STORE_TOKEN} from '../config/create-store';
+import {UsersActions} from './users.actions';
+import {ItemsActions} from './items.actions';
 
-import { UserService } from '../user.service';
-import { PantryService } from '../pantry.service';
 
 @Component({
     selector: 'pantry-items',
@@ -44,9 +45,9 @@ import { PantryService } from '../pantry.service';
             {{selectedItemId}}
         </form>
     `,
-    providers: [UserService, PantryService],
+    providers: [UsersActions, ItemsActions],
 })
-export class PantryListComponent implements OnInit {
+export class PantryListComponent implements OnInit, OnDestroy {
     pantryItems: Object[];
     // initialize so we do not have to handle empty state in template by hiding something
     users: Object[] = [];
@@ -54,26 +55,35 @@ export class PantryListComponent implements OnInit {
     selectedUserId: number;
     selectedItemId: number;
     showItemRequired = false;
+    unsubscribe: any;
 
     constructor(
-        private userService: UserService,
-        private pantryService: PantryService
+        @Inject(STORE_TOKEN) private store: any,
+        private itemsActions: ItemsActions,
+        private usersActions: UsersActions
     ) {}
 
     ngOnInit() {
-        this.pantryService.getItems().then(items => this.pantryItems = items);
-        this.userService
-            .getUsers()
-            .then(users => {
-                this.users = users;
-                // TODO init from session
-                this.selectedUserId = users[0].id;
-            });
+        this.store.dispatch(this.usersActions.loadUsers());
+        this.store.dispatch(this.itemsActions.loadItems());
+
+        this.unsubscribe = this.store.subscribe(() => {
+            let state = this.store.getState();
+            this.users = state.users;
+            this.pantryItems = state.items;
+
+            if (state.users.length) {
+                // TODO: get from session
+                this.selectedUserId = state.users[0].id;
+            }
+        });
+
     }
 
-    getPantryItems() {
-        return [];
+    ngOnDestroy() {
+        this.unsubscribe();
     }
+
 
     clearItemError() {
         this.showItemRequired = false;
