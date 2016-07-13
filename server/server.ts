@@ -2,9 +2,9 @@ import * as path from 'path';
 import * as express from 'express';
 const browserify = require('browserify-middleware');
 
-
 import initDb from './models/init-db';
 import api from './api';
+
 
 // make sure db is initialized, we are using sqlite in memory so db is recreated every restart
 initDb()
