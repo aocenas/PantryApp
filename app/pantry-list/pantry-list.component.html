@@ -1,0 +1,39 @@
+<h1>Pantry</h1>
+<form (ngSubmit)="onSubmit()">
+
+    <div *ngIf="pantryItems">
+        <ul>
+            <li *ngFor="let item of pantryItems">
+                <input
+                    type="radio"
+                    name="pantry_item"
+                    value="{{item.id}}"
+                    [(ngModel)]="selectedItemId"
+                    (click)="clearItemError()"
+                />
+                {{item.name}}
+
+                {{item.count}} left
+            </li>
+        </ul>
+    </div>
+    <div *ngIf="showItemRequired" class="error-message">
+        You need to select a snack to take.
+    </div>
+
+    <div class="form-group" *ngIf="users">
+        <select
+            class="form-control"
+            required
+            [(ngModel)]="selectedUserId"
+            [ngModelOptions]="{standalone: true}"
+            name="user_id"
+        >
+            <option *ngFor="let user of users" [value]="user.id">
+                {{user.name}}
+            </option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-default">Take a snack</button>
+    {{selectedItemId}}
+</form>
