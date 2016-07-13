@@ -1,13 +1,12 @@
 import {Component, OnInit, Inject, OnDestroy} from '@angular/core';
+
 import {STORE_TOKEN} from '../config/create-store';
-import {UsersActions} from './users.actions';
 import {ItemsActions} from './items.actions';
 
 
 @Component({
     selector: 'pantry-items',
     templateUrl: 'app/pantry-list/pantry-list.component.html',
-    providers: [UsersActions, ItemsActions],
 })
 export class PantryListComponent implements OnInit, OnDestroy {
     pantryItems: Object[];
@@ -20,30 +19,30 @@ export class PantryListComponent implements OnInit, OnDestroy {
 
     constructor(
         @Inject(STORE_TOKEN) private store: any,
-        private itemsActions: ItemsActions,
-        private usersActions: UsersActions
+        private itemsActions: ItemsActions
     ) {}
 
     ngOnInit() {
-        this.store.dispatch(this.usersActions.loadUsers());
-        this.store.dispatch(this.itemsActions.loadItems());
-
-        this.unsubscribe = this.store.subscribe(() => {
-            let state = this.store.getState();
-            console.log(state);
-            this.users = state.users;
-            this.pantryItems = state.items;
-
-            if (state.users.length) {
-                // TODO: get from session
-                this.selectedUserId = state.users[0].id;
-            }
-        });
-
+        // loading is triggered in parent component
+        this.unsubscribe = this.store.subscribe(() => this.processState());
+        // handle initial state
+        this.processState();
     }
 
     ngOnDestroy() {
         this.unsubscribe();
+    }
+
+    processState() {
+        let state = this.store.getState();
+        console.log(state);
+        this.users = state.users;
+        this.pantryItems = state.items;
+
+        if (state.users.length) {
+            // TODO: get from session
+            this.selectedUserId = state.users[0].id;
+        }
     }
 
 
