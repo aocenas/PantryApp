@@ -1,5 +1,7 @@
 import * as path from 'path';
 import * as express from 'express';
+const browserify = require('browserify-middleware');
+
 
 import initDb from './models/init-db';
 import api from './api';
@@ -10,10 +12,12 @@ initDb()
         const app = express();
         const port = process.env.PORT || 3000;
 
-        // serve files from the root so no security here
-        app.use('/', express.static(path.join(__dirname, '../'), { maxAge: 31557600000 }));
+        app.get('/static/js/bundle.js', browserify(__dirname + '/../app/main.js', {}));
 
         app.use('/api/v1/', api);
+
+        // serve files from the root so no security here
+        app.use('/', express.static(path.join(__dirname, '../'), { maxAge: 31557600000 }));
 
         app.listen(
             port,
