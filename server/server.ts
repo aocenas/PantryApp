@@ -21,6 +21,11 @@ initDb()
         // serve files from the root so no security here
         app.use('/', express.static(path.join(__dirname, '../'), { maxAge: 31557600000 }));
 
+        // catch all so we serve index on /stats
+        app.get('*', (req, res) => {
+            res.sendfile(path.join(__dirname, '../index.html'));
+        });
+
         app.listen(
             port,
             function() {
