@@ -12,6 +12,8 @@ initDb()
         const app = express();
         const port = process.env.PORT || 3000;
 
+        // TODO: PERF: firs response id pretty slow because it has to bundle all the things
+        // TODO: use tsify for correct source maps
         app.get('/static/js/bundle.js', browserify(__dirname + '/../app/main.js', {}));
 
         app.use('/api/v1/', api);
