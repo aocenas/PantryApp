@@ -9,7 +9,7 @@ const router = express.Router();
 /**
  * Decrement count on particular item.
  */
-router.post('/pantry-items/take/:id', function takePantryItem(req, res, next) {
+router.post('/pantry-items/:id/take', function takePantryItem(req, res, next) {
     let id: number;
     // make sure we have correct input
     try {

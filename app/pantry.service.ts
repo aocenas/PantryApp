@@ -6,7 +6,7 @@ import { Http } from '@angular/http';
 @Injectable()
 export default class PantryService {
     private itemsUrl = 'api/v1/pantry-items';
-    private takeItemUrl = (id: number) => `api/v1/pantry-items/take/${id}`;
+    private takeItemUrl = (id: number) => `api/v1/pantry-items/${id}/take`;
 
     constructor(private http: Http) { }
 
