@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 
 import User from './user.model';
 import PantryItem from './pantry-item.model';
-import db from './db';
+import db from '../config/db';
 
 // for statistics to track snacks taken
 const Action = db.define('Action', {

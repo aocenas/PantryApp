@@ -1,8 +1,8 @@
 // make sure all models are loaded
-import PantryItem from './pantry-item.model';
-import User from './user.model';
-import db from './db';
-import {userNames, itemNames} from './init-data';
+import PantryItem from './models/pantry-item.model';
+import User from './models/user.model';
+import db from './config/db';
+import {userNames, itemNames} from './config/init-data';
 
 function randomCount() {
     return Math.ceil(Math.random() * 10);

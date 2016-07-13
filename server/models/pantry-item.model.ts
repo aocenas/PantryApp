@@ -1,6 +1,10 @@
-import db from './db';
+import db from '../config/db';
 const Sequelize = require('sequelize');
 
+
+/**
+ * Represents type of snack in the pantry.
+ */
 export default db.define('PantryItem', {
     name: {
         type: Sequelize.TEXT,

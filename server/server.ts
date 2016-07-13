@@ -3,7 +3,7 @@ import * as express from 'express';
 const browserify = require('browserify-middleware');
 const session = require('express-session');
 
-import initDb from './models/init-db';
+import initDb from './init-db';
 import api from './api';
 
 
@@ -24,6 +24,7 @@ initDb()
         // TODO: use tsify to generate correct source maps
         app.get('/static/js/bundle.js', browserify(__dirname + '/../app/main.js', {}));
 
+        // register api routes
         app.use('/api/v1/', api);
 
         // serve files from the root so no security here
@@ -31,7 +32,7 @@ initDb()
 
         // catch all so we serve index on /stats
         app.get('*', (req, res) => {
-            res.sendfile(path.join(__dirname, '../index.html'));
+            res.sendFile(path.join(__dirname, '../index.html'));
         });
 
         app.listen(
