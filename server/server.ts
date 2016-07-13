@@ -27,7 +27,7 @@ initDb()
         // register api routes
         app.use('/api/v1/', api);
 
-        // serve files from the root so no security here
+        // serve files from the root so no security here, but some stuff is linked directly from node_modules
         app.use('/', express.static(path.join(__dirname, '../'), { maxAge: 31557600000 }));
 
         // catch all so we serve index on /stats
