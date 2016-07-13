@@ -1,6 +1,7 @@
 import * as path from 'path';
 import * as express from 'express';
 const browserify = require('browserify-middleware');
+const session = require('express-session');
 
 import initDb from './models/init-db';
 import api from './api';
@@ -11,6 +12,13 @@ initDb()
     .then(() => {
         const app = express();
         const port = process.env.PORT || 3000;
+
+        // using default memory store so will be wiped sam way as the db
+        app.use(session({
+            secret: 'super secret',
+            resave: false, // can be false for redis not sure about memoryStore
+            saveUninitialized: false,
+        }));
 
         // TODO: PERF: first response is pretty slow because it has to bundle all the things
         // TODO: use tsify to generate correct source maps

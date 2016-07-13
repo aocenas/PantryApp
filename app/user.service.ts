@@ -6,6 +6,7 @@ import { Http } from '@angular/http';
 @Injectable()
 export default class UserService {
     private usersUrl = 'api/v1/users';
+    private currentUserUrl = 'api/v1/users/current';
 
     constructor(private http: Http) { }
 
@@ -16,6 +17,12 @@ export default class UserService {
             .catch(this.handleError);
     }
 
+    getCurrentUserId(): Promise<number> {
+        return this.http.get(this.currentUserUrl)
+            .toPromise()
+            .then(response => response.json().id)
+            .catch(this.handleError);
+    }
 
     private handleError(error: any) {
         console.error('An error occurred', error);

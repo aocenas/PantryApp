@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import PantryService from '../pantry.service';
 import {makeAction} from '../utils';
+import {loadCurrentUserIdAction} from './users.actions';
 
 export const LOAD_ITEMS = 'LOAD_ITEMS';
 const loadItemsAction = makeAction(LOAD_ITEMS);
@@ -34,7 +35,10 @@ export class ItemsActions {
             return this.pantryService
                 .takeItem(itemId, userId)
                 .then(
-                    item => dispatch(takeItemAction(item)),
+                    item => {
+                        dispatch(loadCurrentUserIdAction(userId));
+                        dispatch(takeItemAction(item));
+                    },
                     err => dispatch(takeItemAction(err))
                 );
         };

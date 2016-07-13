@@ -9,13 +9,17 @@ import {ItemsActions} from './items.actions';
     templateUrl: 'app/pantry-list/pantry-list.component.html',
 })
 export class PantryListComponent implements OnInit, OnDestroy {
-    pantryItems: Object[];
-    users: Object[];
+    pantryItems: any[];
+    users: any[];
 
+    // selected form values
     selectedUserId: number;
     selectedItemId: number;
-    showItemRequired = false;
+
     unsubscribe: Function;
+
+    // controls for error messages
+    showItemRequired = false;
 
     constructor(
         @Inject(STORE_TOKEN) private store: any,
@@ -35,16 +39,14 @@ export class PantryListComponent implements OnInit, OnDestroy {
 
     processState() {
         let state = this.store.getState();
-        console.log(state);
-        this.users = state.users;
+        this.users = state.users.users;
         this.pantryItems = state.items;
 
-        if (state.users.length) {
-            // TODO: get from session
-            this.selectedUserId = state.users[0].id;
+        if (this.users.length) {
+            // current users id is persisted in session
+            this.selectedUserId = state.users.currentUserId || this.users[0].id;
         }
     }
-
 
     clearItemError() {
         this.showItemRequired = false;

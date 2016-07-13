@@ -48,7 +48,8 @@ export class StatsComponent implements OnInit {
     }
 
     processState() {
-        const {users, items, stats} = this.store.getState();
+        const {items, stats, users: {users}} = this.store.getState();
+
         // make sure everything is loaded
         if (stats.length && items.length && users.length) {
             const grouped = groupBy(stats, (action: any) => action.UserId);

@@ -28,6 +28,7 @@ export class AppComponent implements OnInit {
     ngOnInit() {
         // load this data here as they are needed for both pages
         this.store.dispatch(this.usersActions.loadUsers());
+        this.store.dispatch(this.usersActions.loadCurrentUserId());
         this.store.dispatch(this.itemsActions.loadItems());
     }
 }

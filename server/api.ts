@@ -7,7 +7,7 @@ import User from './models/user.model';
 const router = express.Router();
 
 /**
- * Decrement count on particular item.
+ * Take an item from pantry as an user. Sends updated item on success.
  */
 router.post('/user/:userId/take/:itemId/', function takePantryItem(req, res, next) {
     let itemId: number;
@@ -34,12 +34,16 @@ router.post('/user/:userId/take/:itemId/', function takePantryItem(req, res, nex
                         .decrement('count', {by: 1})
                         // TODO: PERF: we could just modify data in place
                         .then(item => item.reload())
+                        // create action object which is used in stats page
                         .then(() => Action.create({
                             type: 'take',
                             UserId: user.id,
                             PantryItemId: item.id,
                         }))
-                        .then(() => res.json({item}));
+                        .then(() => {
+                            req.session.currentUserId = user.id;
+                            res.json({item});
+                        });
                 } else {
                     res.status(400).json({message: 'Out of stock'});
                 }
@@ -60,6 +64,13 @@ router.get('/users', function getUsers(req, res, next) {
         .findAll()
         .then(users => res.json({users}))
         .catch(next);
+});
+
+/**
+ * send current user id, which is user that was last used to take an item from the pantry
+ */
+router.get('/users/current', function getUsers(req, res, next) {
+    res.json({id: req.session.currentUserId})
 });
 
 router.get('/actions', function getActions(req, res, next) {
