@@ -6,6 +6,7 @@ import { Http } from '@angular/http';
 @Injectable()
 export default class PantryService {
     private itemsUrl = 'api/v1/pantry-items';
+    private takeItemUrl = (id: number) => `api/v1/pantry-items/take/${id}`;
 
     constructor(private http: Http) { }
 
@@ -13,6 +14,14 @@ export default class PantryService {
         return this.http.get(this.itemsUrl)
             .toPromise()
             .then(response => response.json().items)
+            .catch(this.handleError);
+    }
+
+
+    takeItem(itemId: number): Promise<any[]> {
+        return this.http.post(this.takeItemUrl(itemId), null)
+            .toPromise()
+            .then(response => response.json().item)
             .catch(this.handleError);
     }
 

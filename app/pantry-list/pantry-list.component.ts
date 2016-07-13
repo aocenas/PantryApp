@@ -30,6 +30,7 @@ export class PantryListComponent implements OnInit, OnDestroy {
 
         this.unsubscribe = this.store.subscribe(() => {
             let state = this.store.getState();
+            console.log(state);
             this.users = state.users;
             this.pantryItems = state.items;
 
@@ -55,7 +56,12 @@ export class PantryListComponent implements OnInit, OnDestroy {
             this.showItemRequired = true;
             return;
         }
-        console.log('submit');
+
+        this.store.dispatch(this.itemsActions.takeItem(this.selectedItemId));
+        // TODO: it would be better to reset this after we are sure action is completed, check what is isMounted
+        // equivalent in Angular or use Bluebird with cancelable promises
+        // .then(() => this.selectedItemId = null;)
+        this.selectedItemId = null;
     }
 }
 

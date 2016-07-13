@@ -6,6 +6,9 @@ import {makeAction} from '../utils';
 export const LOAD_ITEMS = 'LOAD_ITEMS';
 const loadItemsAction = makeAction(LOAD_ITEMS);
 
+export const TAKE_ITEM = 'TAKE_ITEM';
+const takeItemAction = makeAction(TAKE_ITEM);
+
 
 @Injectable()
 export class ItemsActions {
@@ -24,4 +27,16 @@ export class ItemsActions {
                 );
         };
     };
+
+
+    takeItem(itemId) {
+        return (dispatch) => {
+            return this.pantryService
+                .takeItem(itemId)
+                .then(
+                    item => dispatch(takeItemAction(item)),
+                    err => dispatch(takeItemAction(err))
+                );
+        };
+    }
 }
