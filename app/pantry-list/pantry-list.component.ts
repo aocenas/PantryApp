@@ -7,6 +7,7 @@ import {ItemsActions} from './items.actions';
 @Component({
     selector: 'pantry-items',
     templateUrl: 'app/pantry-list/pantry-list.component.html',
+    styleUrls: ['app/pantry-list/pantry-list.component.css'],
 })
 export class PantryListComponent implements OnInit, OnDestroy {
     pantryItems: any[];

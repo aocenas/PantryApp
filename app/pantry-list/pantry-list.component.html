@@ -2,26 +2,27 @@
 <form (ngSubmit)="onSubmit()">
 
     <div *ngIf="pantryItems">
-        <ul>
-            <li *ngFor="let item of pantryItems">
+        <ul class="list-group">
+            <label *ngFor="let item of pantryItems" class="list-group-item" [class.disabled]="item.count == 0">
                 <input
                     type="radio"
                     name="pantry_item"
                     value="{{item.id}}"
                     [(ngModel)]="selectedItemId"
                     (click)="clearItemError()"
+                    [disabled]="item.count == 0"
                 />
                 {{item.name}}
 
-                {{item.count}} left
-            </li>
+                <span class="badge">{{item.count}} left</span>
+            </label>
         </ul>
     </div>
     <div *ngIf="showItemRequired" class="error-message">
         You need to select a snack to take.
     </div>
 
-    <div class="form-group" *ngIf="users">
+    <div class="form-group bottom" *ngIf="users">
         <select
             class="form-control"
             required
@@ -33,7 +34,6 @@
                 {{user.name}}
             </option>
         </select>
+        <button type="submit" class="btn btn-primary">Take a snack</button>
     </div>
-    <button type="submit" class="btn btn-default">Take a snack</button>
-    {{selectedItemId}}
 </form>

@@ -8,10 +8,10 @@ import {STORE_TOKEN} from './config/create-store';
 @Component({
     selector: 'my-app',
     template: `
-        <nav>
-            <a [routerLink]="['/']" routerLinkActive="active">List</a>
-            <a [routerLink]="['/stats']" routerLinkActive="active">Stats</a>
-        </nav>
+        <ul class="nav nav-tabs">
+            <li><a [routerLink]="['/']" routerLinkActive="active">List</a></li>
+            <li><a [routerLink]="['/stats']" routerLinkActive="active">Stats</a></li>
+        </ul>
         <router-outlet></router-outlet>
     `,
     directives: [ROUTER_DIRECTIVES],

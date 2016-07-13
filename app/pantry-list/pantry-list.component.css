@@ -1,0 +1,11 @@
+.list-group-item:hover {
+    background-color: #f5f5f5;
+    cursor: pointer;
+}
+
+.bottom {
+    display: flex;
+}
+.bottom select {
+    margin-right: 15px;
+}
