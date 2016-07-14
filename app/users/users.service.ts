@@ -1,26 +1,21 @@
-import 'rxjs/add/operator/toPromise';
-import {Injectable} from '@angular/core';
-import {Http} from '@angular/http';
+require('isomorphic-fetch');
+declare const fetch: Function;
 
-
-@Injectable()
 export default class UsersService {
     private usersUrl = 'api/v1/users';
     private currentUserUrl = 'api/v1/users/current';
 
-    constructor(private http: Http) { }
-
     getUsers(): Promise<any[]> {
-        return this.http.get(this.usersUrl)
-            .toPromise()
-            .then(response => response.json().users)
+        return fetch(this.usersUrl)
+            .then(response => response.json())
+            .then(data => data.users)
             .catch(this.handleError);
     }
 
     getCurrentUserId(): Promise<number> {
-        return this.http.get(this.currentUserUrl)
-            .toPromise()
-            .then(response => response.json().id)
+        return fetch(this.currentUserUrl)
+            .then(response => response.json())
+            .then(data => data.id)
             .catch(this.handleError);
     }
 

@@ -1,18 +1,13 @@
-import 'rxjs/add/operator/toPromise';
-import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+require('isomorphic-fetch');
+declare const fetch: Function;
 
-
-@Injectable()
 export default class StatsService {
     private actionsUrl = 'api/v1/actions';
 
-    constructor(private http: Http) { }
-
     getActions(): Promise<any[]> {
-        return this.http.get(this.actionsUrl)
-            .toPromise()
-            .then(response => response.json().actions)
+        return fetch(this.actionsUrl)
+            .then(response => response.json())
+            .then(data => data.actions)
             .catch(this.handleError);
     }
 

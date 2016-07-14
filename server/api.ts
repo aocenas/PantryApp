@@ -70,7 +70,7 @@ router.get('/users', function getUsers(req, res, next) {
  * send current user id, which is user that was last used to take an item from the pantry
  */
 router.get('/users/current', function getUsers(req, res, next) {
-    res.json({id: req.session.currentUserId})
+    res.json({id: req.session.currentUserId});
 });
 
 router.get('/actions', function getActions(req, res, next) {

@@ -1,27 +1,21 @@
-import 'rxjs/add/operator/toPromise';
-import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+declare const fetch: Function;
 
-
-@Injectable()
 export default class PantryService {
     private itemsUrl = 'api/v1/pantry-items';
     private takeItemUrl = (userId: number, itemId: number) => `api/v1/user/${userId}/take/${itemId}`;
 
-    constructor(private http: Http) { }
-
     getItems(): Promise<any[]> {
-        return this.http.get(this.itemsUrl)
-            .toPromise()
-            .then(response => response.json().items)
+        return fetch(this.itemsUrl)
+            .then(response => response.json())
+            .then(data => data.items)
             .catch(this.handleError);
     }
 
 
     takeItem(itemId: number, userId: number): Promise<any[]> {
-        return this.http.post(this.takeItemUrl(userId, itemId), null)
-            .toPromise()
-            .then(response => response.json().item)
+        return fetch(this.takeItemUrl(userId, itemId), {method: 'POST'})
+            .then(response => response.json())
+            .then(data => data.item)
             .catch(this.handleError);
     }
 

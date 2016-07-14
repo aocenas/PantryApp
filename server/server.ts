@@ -13,7 +13,7 @@ initDb()
         const app = express();
         const port = process.env.PORT || 3000;
 
-        // using default memory store so will be wiped sam way as the db
+        // using default memory store so will be wiped same way as the db
         app.use(session({
             secret: 'super secret',
             resave: false, // can be false for redis not sure about memoryStore
