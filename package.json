@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "__comment__test": "see https://github.com/facebook/react/issues/7240 why stderr is piped",
+    "test": "./node_modules/.bin/jest 2>/dev/null",
     "postinstall": "./node_modules/.bin/typings install",
     "tsc": "./node_modules/.bin/tsc",
     "tsc:w": "./node_modules/.bin/tsc -w",
@@ -48,9 +49,16 @@
     "zone.js": "0.6.12"
   },
   "devDependencies": {
+    "react-addons-test-utils": "^15.2.1",
     "tslint": "3.13.0",
     "tslint-react": "^0.4.0",
     "typescript": "1.8.10",
     "typings": "1.0.4"
+  },
+  "jest": {
+    "unmockedModulePathPatterns": [
+      "react"
+    ],
+    "testRegex": "__tests__/.*\\.spec\\.js$"
   }
 }

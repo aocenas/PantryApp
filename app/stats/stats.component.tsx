@@ -1,11 +1,8 @@
 import * as React from 'react';
-import {connect} from 'react-redux';
 import {groupBy, find} from 'lodash';
 
-import {loadStats} from './stats.actions';
 
-
-class StatsComponent extends React.Component<any, any> {
+export default class StatsComponent extends React.Component<any, any> {
     props: {
         users: any[],
         items: any[],
@@ -64,20 +61,3 @@ class StatsComponent extends React.Component<any, any> {
         );
     }
 }
-
-
-function mapStateToProps(state) {
-    return {
-        users: state.users.users,
-        items: state.items,
-        stats: state.stats,
-    };
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-        loadStats: () => dispatch(loadStats()),
-    };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(StatsComponent);

@@ -1,8 +1,5 @@
 import * as React from 'react';
 const cx = require('classnames');
-import {connect} from 'react-redux';
-
-import {takeItem} from './items.actions';
 
 type Props = {
     users: any[],
@@ -15,7 +12,7 @@ type State = {
     selectedItemId: number,
     selectedUserId: number,
 }
-class PantryListComponent extends React.Component<Props, State> {
+export default class PantryListComponent extends React.Component<Props, State> {
     props: Props;
     state: State;
 
@@ -46,6 +43,7 @@ class PantryListComponent extends React.Component<Props, State> {
     }
 
     render() {
+
         return (
             <div className="pantry-list">
                 <h1>Pantry</h1>
@@ -113,30 +111,12 @@ class PantryListComponent extends React.Component<Props, State> {
 
     onSubmit(event) {
         event.preventDefault();
-        if (!this.state.selectedItemId) {
+        if (this.state.selectedItemId === null) {
             this.setState({showSelectItemError: true});
             return;
         }
 
-        this._submitPromise = this.props.takeItem(this.state.selectedItemId, this.state.selectedUserId)
+        this.props.takeItem(this.state.selectedItemId, this.state.selectedUserId)
             .then(() => this.setState({selectedItemId: null}));
     }
 }
-
-
-function mapStateToProps(state) {
-    return {
-        users: state.users.users,
-        currentUserId: state.users.currentUserId,
-        items: state.items,
-    };
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-        takeItem: (userId, itemId) => dispatch(takeItem(userId, itemId)),
-    };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(PantryListComponent);
-
