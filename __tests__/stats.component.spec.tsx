@@ -4,7 +4,6 @@ jest.unmock('lodash');
 jest.unmock('classnames');
 
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 import * as TestUtils from 'react-addons-test-utils';
 import StatsComponent from '../app/stats/stats.component';
 import {users, items, stats} from './test-data';

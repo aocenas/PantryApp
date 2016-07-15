@@ -3,7 +3,6 @@ jest.unmock('./test-data');
 jest.unmock('classnames');
 
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 import * as TestUtils from 'react-addons-test-utils';
 import PantryListComponent from '../app/pantry-list/pantry-list.component';
 import {users, items} from './test-data';
