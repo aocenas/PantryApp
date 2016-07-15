@@ -3,6 +3,7 @@
     "express": "registry:dt/express#4.0.0+20160708185218",
     "express-serve-static-core": "registry:dt/express-serve-static-core#4.0.0+20160711183608",
     "jasmine": "registry:dt/jasmine#2.2.0+20160621224255",
+    "jest": "registry:dt/jest#0.9.0+20160706021812",
     "mime": "registry:dt/mime#0.0.0+20160316155526",
     "node": "registry:dt/node#6.0.0+20160621231320",
     "react-addons-test-utils": "registry:dt/react-addons-test-utils#0.14.0+20160427035638",
