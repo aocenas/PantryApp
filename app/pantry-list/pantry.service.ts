@@ -1,4 +1,4 @@
-declare const fetch: Function;
+import {fetch} from '../utils';
 
 export default class PantryService {
     private itemsUrl = 'api/v1/pantry-items';

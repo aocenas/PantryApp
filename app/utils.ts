@@ -1,4 +1,12 @@
 
+export function fetch(url, options) {
+    return global.fetch(url, Object.assign({}, options, {
+        // make sure cookies are sent
+        credentials: 'same-origin',
+    }));
+}
+
+
 // from http://redux.js.org/docs/recipes/ReducingBoilerplate.html
 export function createReducer(initialState: any, handlers: Object) {
     return function reducer(state = initialState, action) {

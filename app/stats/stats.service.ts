@@ -1,5 +1,4 @@
-require('isomorphic-fetch');
-declare const fetch: Function;
+import {fetch} from '../utils';
 
 export default class StatsService {
     private actionsUrl = 'api/v1/actions';

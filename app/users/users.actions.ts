@@ -1,4 +1,3 @@
-require('isomorphic-fetch');
 import {makeAction} from '../utils';
 
 export const LOAD_USERS = 'LOAD_USERS';

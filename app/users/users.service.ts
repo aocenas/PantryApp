@@ -1,5 +1,4 @@
-require('isomorphic-fetch');
-declare const fetch: Function;
+import {fetch} from '../utils';
 
 export default class UsersService {
     private usersUrl = 'api/v1/users';
@@ -13,7 +12,9 @@ export default class UsersService {
     }
 
     getCurrentUserId(): Promise<number> {
-        return fetch(this.currentUserUrl)
+        return fetch(this.currentUserUrl, {
+            credentials: 'same-origin',
+        })
             .then(response => response.json())
             .then(data => data.id)
             .catch(this.handleError);
